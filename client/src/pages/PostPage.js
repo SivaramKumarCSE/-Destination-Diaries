@@ -7,34 +7,38 @@ import { Link } from 'react-router-dom';
 export default function PostPage() {
 	const [postInfo, setPostInfo] = useState(null);
 	const { userInfo } = useContext(UserContext);
-	const {id} = useParams();
+	const { id } = useParams();
+
 	useEffect(() => {
-		fetch(`http://localhost:4000/post/${id}`)
-			.then((response) => {
+		fetch(`http://localhost:4000/post/${id}`).then((response) => {
 			response.json().then((postInfo) => {
 				setPostInfo(postInfo);
-				
 			});
 		});
-	}, []);
+	}, [id]);
 
-	if (!postInfo) return '';
+	if (!postInfo) return null;
 
 	return (
-		<div className='post-page'>
-			<h1>{postInfo.title}</h1>
-			<time>{formatISO9075(new Date(postInfo.createdAt))}</time>
-			<div className='author'>by @{postInfo.author.username}</div>
+		<div className='post-page max-w-3xl mx-auto my-10 p-8 bg-white shadow-lg rounded-lg'>
+			<h1 className='text-4xl font-extrabold text-gray-900 mb-6'>{postInfo.title}</h1>
+			<div className='flex items-center justify-between text-gray-600 mb-6'>
+				<time className='text-sm'>{formatISO9075(new Date(postInfo.createdAt))}</time>
+				<div className='text-sm font-semibold'>by @{postInfo.author.username}</div>
+			</div>
+
 			{userInfo.id === postInfo.author._id && (
-				<div className='edit-row'>
-					<Link className='edit-btn' to={`/edit/${postInfo._id}`}>
+				<div className='edit-row mb-6'>
+					<Link
+						className='edit-btn inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300'
+						to={`/edit/${postInfo._id}`}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
 							viewBox='0 0 24 24'
 							strokeWidth={1.5}
 							stroke='currentColor'
-							className='w-6 h-6'>
+							className='w-5 h-5 mr-2'>
 							<path
 								strokeLinecap='round'
 								strokeLinejoin='round'
@@ -45,11 +49,17 @@ export default function PostPage() {
 					</Link>
 				</div>
 			)}
-			<div className='image'>
-				<img src={`http://localhost:4000/${postInfo.cover}`} alt='' />
+
+			<div className='image mb-8'>
+				<img
+					src={`http://localhost:4000/${postInfo.cover}`}
+					alt={postInfo.title}
+					className='w-full h-auto rounded-lg shadow-md object-cover'
+				/>
 			</div>
+
 			<div
-				className='content'
+				className='content text-gray-800 text-base leading-relaxed'
 				dangerouslySetInnerHTML={{ __html: postInfo.content }}
 			/>
 		</div>

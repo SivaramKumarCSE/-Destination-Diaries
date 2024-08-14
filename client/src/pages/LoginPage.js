@@ -29,7 +29,9 @@ export default function LoginPage() {
 		return <Navigate to={'/'} />;
 	}
 	return (
-		<form className='login' onSubmit={login}>
+		
+		<div className=''>
+			<form className='flex flex-col items-center' onSubmit={login}>
 			<h1>Login</h1>
 			<input
 				type='text'
@@ -45,5 +47,6 @@ export default function LoginPage() {
 			/>
 			<button>Login</button>
 		</form>
+		</div>
 	);
 }
