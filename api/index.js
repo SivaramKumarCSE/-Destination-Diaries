@@ -12,7 +12,9 @@ const fs = require('fs');
 const salt = bcrypt.genSaltSync(10);
 const app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: (origin, callback) => {
+    callback(null, true); // Allow all origins
+  }}));
 app.use(express.json());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.set('strictQuery', true);
