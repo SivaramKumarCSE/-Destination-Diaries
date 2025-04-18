@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.set('strictQuery', true);
 
-mongoose.connect('mongodb://localhost:27017/GIT');
+mongoose.connect('mongodb+srv://tharanitharan:tharanitharan@cluster0.l8oewii.mongodb.net/dairy?retryWrites=true&w=majority&appName=Cluster0');
 
 // Set up session middleware
 app.use(session({
@@ -143,4 +143,7 @@ app.get('/post/:id', async (req, res) => {
     res.json(postDoc);
 });
 
-app.listen(4000);
+// app.listen(5002);
+app.listen(4000, () => {
+    console.log(`Server running on port ${5002}`);
+  });
