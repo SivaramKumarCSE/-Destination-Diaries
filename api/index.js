@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.set('strictQuery', true);
 
-mongoose.connect('mongodb+srv://tharanitharan:tharanitharan@cluster0.l8oewii.mongodb.net/dairy?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect('mongodb+srv://sivaramkumarsivaramkumar51:sivaramkumarsivaramkumar51@cluster0.niogl95.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 // Set up session middleware
 app.use(session({
